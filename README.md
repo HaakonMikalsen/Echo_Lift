@@ -1,5 +1,5 @@
 # Norsk
-## Oppsummering av analog kretsdeler
+## Oppsummering av analog kretsdeler - Av Håkon Kartveit Mikalsen og Sigurd Berg
 For å motta og behandle signalet er det valgt å bruke asynkront system. Dette senker kompleksiteten og kostnaden. En hydrofon mottar signalet og forsterkes. To forskjellige filter med senterfrekvens rundt FSK-frekvensene brukes for å isolere båndene i signalet. Omhyldringsavlesere sammen med avgjøringsenheter brukes for å identifisere om det er mottatt et signal i hver av båndene 
 ![alt text](image-6.png)
 Det implementerte analoge systemet består av en hydrofon med en forforsterker og
