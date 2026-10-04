@@ -1,8 +1,8 @@
-# Norsk
+# Norsk (English further down)
 ## Oppsummering av analog kretsdeler - Av Håkon Kartveit Mikalsen og Sigurd Berg
 For å motta og behandle signalet er det valgt å bruke asynkront system. Dette senker kompleksiteten og kostnaden. En hydrofon mottar signalet og forsterkes. To forskjellige filter med senterfrekvens rundt FSK-frekvensene brukes for å isolere båndene i signalet. Omhyldringsavlesere sammen med avgjøringsenheter brukes for å identifisere om det er mottatt et signal i hver av båndene 
 ![alt text](image-6.png)
-Det implementerte analoge systemet består av en hydrofon med en forforsterker og
+Det implementerte analoge systemet består av en hydrofon med en forforsterker. Dette er koblet til en automatic gain control unit som nivåregulerer signalet og forenkler signalbehandlingen videre. Bånpassfilter sammen med ac til dc convertere, samt en komparator, leser av signalet og sender den mottatte informasjonen videre. 
 ![alt text](image-5.png)
 Signalet som skulle mottas og dekodes er illustrert under
 ![alt text](image-17.png)
@@ -16,7 +16,7 @@ Hydrofonen er konstruert av en plastsylynder, lim og et piezoelektrisk element. 
 ![alt text](image-8.png)
 
 ### Forforsterker
-Element et hydrofonen er et piezoelektrisk element. Det er derfor valgt å bruke en charge amplifier.
+Elementet i hydrofonen er et piezoelektrisk element. Det er derfor valgt å bruke en charge amplifier.
 ![alt text](image-9.png)
 
 ### Nivåregulator / Automatic gain control
@@ -62,6 +62,66 @@ før man aktiverer reservebøya
 
 ## Overordnet system
 Systemet består av en undervanns avsender som sender en adresse med en modifisert FSK-modulering. Signalet mottas og behandles og dekodes analogt for å hente ut den avsendte adressen. Den mottatte adressen feilkorrigert av en FPGA. Etter feilkorrigering sjekkes adressen mot enhetens adresse. På denne måten aktiveres kun den ønskede reservebøyen. Reservebøyen bruker et gass system for oppløsning for å redusere bevegelige deler og unngå å legge igjen nedtyngede materiale på havbunnen.  
+
+![alt text](image-1.png)
+
+# English
+## Summary of the analog circuit - Made by Håkon Kartveit Mikalsen and Sigurd Berg
+It is choses to use a asynchronous system to receive and process the signal. This lowers the complexity and cost. A hydrophone receives the signal which then gets amplified. Two different filters with frequencies around the FSK-frequencies are used to isolate the bands in the signal. An envelope detector is used in combination with a decision unit to identify if there is received a signal in each of the bands.
+![alt text](image-6.png)
+The implementation of the analog system uses a hydrophone withe a preamp. This feeds into an automatic gain control unit which regulates the amplitude of the signal, simplifying further processing. A bandpassfilter, AC to DC converter and a comparator is used to detect and convert the analog signal to a decoded digital signal. 
+![alt text](image-5.png)
+An example of the analog signal is give bellow
+![alt text](image-17.png)
+
+### Circuit
+![alt text](image-16.png)
+
+### Hydrophone
+The hydrophone is made by glueing a piezoelectric disk inside a plastic cylinder. The hydrophone could be improved and did not have the wanted frequency response
+![alt text](image-7.png)
+![alt text](image-8.png)
+
+### Preamplifier
+The receiving element in the hydrophone is a piezoelectric element. There a charge amplifier is chosen as the preamp.
+![alt text](image-9.png)
+
+### Regulator / Automatic gain control
+The amplitude regulator is implemented with a variable gain amplifier which is controlled by a control unit which uses the average voltage of the signal. The circuit could be improved for lower voltage amplification, but worked as wanted
+
+![alt text](image-10.png)
+![alt text](image-11.png)
+
+### Filter
+The signal is filtered through two bandpassfilters which worked as wanted. It was chosen to use Delyannis-Friend bandpassfilters as this topology is relatively insensitive to component tolerances, has an easly adjustable Q-factor and has an amplification around the wanted band.
+![alt text](image-12.png)
+![alt text](image-13.png)
+
+### Envelope detector and decision unit
+It was implemented a rudimentary envelope detector which was used to measure the amplitude voltage of the signals after the filters
+![alt text](image-14.png)
+Denne ble brukt sammen med en komparator til å avgjøre om det er mottatt et signal med en gitt frekvens. Signalet fra komparatoren er omgjort til et pull-up signal på 3.3V som ble brukt av FPGA enheten. 
+
+This was used in combination with a comparator to decide if the received signal contained a given frequency. The signal from the comparator was converted to a pull-up signal at 3.3v which was used by a FPGA unit.
+![alt text](image-15.png)
+
+
+## The project - Echo Lift
+Echo lift is a prototype og a product developed in the subject Electronic system design, project. The subject consisted of mapping out a consumers whishes and needs and then develop a product that could solves them. The prototype consist of a underwater communication system which activates a reserve bouy which helps retrieve lost fishing gear. The aim of the prototype was to show a proof of concept and explore ways to reduce the unit cost and environmental impact 
+
+The project is made by Albert Waagaard Fougner, Fredrik Sanner, Håkon
+Kartveit Mikalsen, Jacob Halsne Berentsen, Sigurd Berg, and
+Tario Solberg Hanski
+
+
+## Background and function
+A large amount of fishing gear is lost every year. A part of this is crab pots. It estimated that around 1% of a fishing boats pots go lost every year. In some parts of the world this is increased to 30%. This is around 25 million pots every year. This leads to plastic pollution and ghost fishing which is damaging for the ecosystem. Lost gear also leads to economic loss both for the fishers and for cleanup work
+
+The concept is based on improving the efficiency of the cleanup work and increase the amount of gear which the fisherman can retrieve themselves. A small and inexpensive reserve bouy is connected to the gear. The bouy can be activated acoustically by a fisherman and release a bouy with a leadline. Using the lead line, a rope with a hook could be lowerd down and pull up the gear. The concept could be integrated with digital marking systems to help find the general are which the pot or other gear is located before the reserve bouy is activated
+![alt text](image.png)
+
+## System
+The system consist of a underwater transmission unit which send an address through a modified FSK-modulation. The signal is received and decoded through analog systems and the address is extracted. The address is error corrected by a FPGA. After error correction, the address is compared to the units address before activation. This way only the correct unit is activated. The bouy uses a CO2 system for activation. This reduces the amount og movable parts and avoids release heavy material at the ocean floor.    
 
 ![alt text](image-1.png)
 
